@@ -1,4 +1,4 @@
-## Hi there 👋
+This is Just Something about Me.
 
 <!--
 **negusbrine/NegusBrine** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
