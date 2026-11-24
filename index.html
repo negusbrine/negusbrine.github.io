@@ -1,480 +1,404 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-palette="ultraviolet">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080d18">
-  <meta name="description" content="NEGUSBRINE — a personal corner of the internet. Religion, Philosophy, Ideology, Technology (Arch btw), Gaming.">
-  <title>NEGUSBRINE — Personal Space</title>
+  <meta name="theme-color" content="#090711">
+  <meta name="description" content="NEGUSBRINE — a personal corner of the internet for ideas, experiments, technology and curiosity.">
+  <title>NEGUSBRINE — The Quiet Signal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: dark;
-      --bg: #080d18;
-      --bg2: #0c1423;
-      --panel: rgba(17, 27, 45, .70);
-      --panel-solid: #111b2d;
-      --text: #edf3fb;
-      --muted: #9aaac0;
-      --line: rgba(174, 198, 228, .15);
-      --accent: #9bb8d8;
-      --accent2: #6d8eae;
-      --glow: rgba(113, 157, 207, .25);
-      --shadow: 0 24px 80px rgba(0,0,0,.35);
+      --bg:#090711; --bg-soft:#100c1c; --surface:rgba(24,18,39,.76);
+      --surface-strong:#191329; --text:#f4efff; --muted:#a79bb9;
+      --line:rgba(197,166,255,.17); --accent:#bd91ff; --accent-2:#8052d6;
+      --accent-rgb:189,145,255; --glow:rgba(150,103,238,.22);
+      --shadow:0 25px 90px rgba(0,0,0,.42); --good:#a9e7c4;
+      --serif:Georgia,serif;
     }
-    [data-theme="light"] {
-      color-scheme: light;
-      --bg: #e9eef4;
-      --bg2: #dce5ef;
-      --panel: rgba(255,255,255,.68);
-      --panel-solid: #f7f9fc;
-      --text: #172335;
-      --muted: #5e6e82;
-      --line: rgba(36, 58, 84, .16);
-      --accent: #476b91;
-      --accent2: #7898b8;
-      --glow: rgba(75, 117, 160, .18);
-      --shadow: 0 24px 80px rgba(42,63,89,.13);
+    html[data-palette="amethyst"] {
+      --bg:#100711; --bg-soft:#1d0d20; --surface:rgba(42,19,43,.76);
+      --surface-strong:#2b1530; --text:#fff0fb; --muted:#c3a2bc;
+      --line:rgba(255,157,226,.17); --accent:#f0a4df; --accent-2:#ad5aab;
+      --accent-rgb:240,164,223; --glow:rgba(210,91,181,.22); --good:#b4e6c2;
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0; min-height: 100vh; overflow-x: hidden;
-      background:
-        radial-gradient(ellipse at 17% 17%, rgba(77,111,164,.22), transparent 34%),
-        radial-gradient(ellipse at 88% 55%, rgba(75,103,145,.13), transparent 35%),
-        linear-gradient(145deg, var(--bg), var(--bg2) 55%, var(--bg));
-      color: var(--text); font-family: Manrope, sans-serif;
-      transition: background .35s ease, color .35s ease;
+    html[data-palette="midnight"] {
+      --bg:#071019; --bg-soft:#0c1b29; --surface:rgba(15,31,46,.78);
+      --surface-strong:#102337; --text:#edf7ff; --muted:#9db4c7;
+      --line:rgba(117,199,255,.17); --accent:#83d2ff; --accent-2:#438dbb;
+      --accent-rgb:131,210,255; --glow:rgba(65,160,220,.2); --good:#a9e7c4;
     }
-    body::before {
-      content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
-      opacity:.24; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.15'/%3E%3C/svg%3E");
+    html[data-palette="ember"] {
+      --bg:#110b08; --bg-soft:#20120d; --surface:rgba(43,27,19,.78);
+      --surface-strong:#2c1b13; --text:#fff3e9; --muted:#c2a996;
+      --line:rgba(255,185,130,.17); --accent:#ffbd83; --accent-2:#bd7047;
+      --accent-rgb:255,189,131; --glow:rgba(230,132,75,.2); --good:#bce3ae;
     }
-    #stars { position:fixed; inset:0; width:100%; height:100%; z-index:-1; pointer-events:none; opacity:.8; }
-    .cursor { position:fixed; width:13px; height:13px; border:1px solid var(--accent); border-radius:50%; pointer-events:none; z-index:50; transform:translate(-50%,-50%); mix-blend-mode:difference; transition:width .2s,height .2s,background .2s; }
-    .cursor.active { width:38px; height:38px; background:rgba(155,184,216,.12); }
-    @media (pointer:coarse) { .cursor { display:none; } }
-    .shell { width:min(1160px, calc(100% - 44px)); margin:auto; }
-    header { display:flex; align-items:center; justify-content:space-between; padding:26px 0; }
-    .brand { font:600 13px "DM Mono", monospace; letter-spacing:.22em; color:var(--muted); text-decoration:none; }
-    .brand span { color:var(--accent); }
-    .top-right { display:flex; gap:10px; align-items:center; }
-    .pill, .icon-btn {
-      border:1px solid var(--line); background:var(--panel); color:var(--text);
-      border-radius:999px; padding:10px 14px; font:500 11px "DM Mono",monospace;
-      letter-spacing:.06em; backdrop-filter:blur(14px); cursor:pointer;
+    html[data-palette="moss"] {
+      --bg:#080f0c; --bg-soft:#101c16; --surface:rgba(20,35,27,.78);
+      --surface-strong:#17271e; --text:#eff8ef; --muted:#a4b8a7;
+      --line:rgba(155,222,167,.17); --accent:#a9e6b2; --accent-2:#5b9c70;
+      --accent-rgb:169,230,178; --glow:rgba(89,173,111,.2); --good:#a9e7c4;
     }
-    .icon-btn { width:39px; height:39px; display:grid; place-items:center; padding:0; font-size:16px; }
-    .hero { min-height:650px; display:grid; grid-template-columns:1.04fr .96fr; align-items:center; gap:50px; padding:50px 0 75px; }
-    .eyebrow { color:var(--accent); font:500 11px "DM Mono",monospace; letter-spacing:.23em; text-transform:uppercase; display:flex; align-items:center; gap:11px; }
-    .eyebrow:before { content:""; width:28px; height:1px; background:var(--accent); }
-    h1 { margin:22px 0 12px; font:700 clamp(56px,9vw,112px)/.9 "Space Grotesk",sans-serif; letter-spacing:-.085em; }
-    h1 .outline { color:transparent; -webkit-text-stroke:1px var(--accent); }
-    .tagline { min-height:32px; margin:25px 0 17px; color:var(--muted); font:500 clamp(14px,1.6vw,17px) "DM Mono",monospace; }
-    .tagline .caret { display:inline-block; width:7px; height:17px; background:var(--accent); vertical-align:-3px; margin-left:3px; animation:blink 1s steps(2) infinite; }
-    @keyframes blink { 50% { opacity:0; } }
-    .intro { max-width:510px; color:var(--muted); font-size:14px; line-height:1.9; }
-    .hero-actions { display:flex; flex-wrap:wrap; gap:11px; margin-top:30px; }
-    .cta { display:inline-flex; align-items:center; gap:10px; border:1px solid var(--line); border-radius:999px; padding:13px 18px; text-decoration:none; color:var(--text); font-size:12px; font-weight:700; background:var(--panel); transition:.25s; }
-    .cta.primary { background:var(--text); color:var(--bg); border-color:var(--text); }
-    .cta:hover { transform:translateY(-3px); box-shadow:0 10px 30px var(--glow); }
-    .visual-wrap { position:relative; min-height:470px; display:grid; place-items:center; perspective:900px; }
-    .orbital { position:absolute; width:min(430px,90%); aspect-ratio:1; border:1px solid var(--line); border-radius:50%; transform:rotateX(67deg) rotateZ(-22deg); box-shadow:0 0 70px var(--glow), inset 0 0 50px var(--glow); animation:orbit 24s linear infinite; }
-    .orbital:before,.orbital:after { content:""; position:absolute; inset:13%; border:1px solid var(--line); border-radius:50%; }
-    .orbital:after { inset:27%; }
-    @keyframes orbit { to { transform:rotateX(67deg) rotateZ(338deg); } }
-    .avatar-card { position:relative; width:min(270px,65vw); aspect-ratio:.88; border:1px solid rgba(190,211,236,.35); border-radius:25px; padding:11px; background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.025)); box-shadow:var(--shadow),0 0 80px var(--glow); transform-style:preserve-3d; transition:transform .15s ease-out; backdrop-filter:blur(12px); }
-    .avatar-card img { width:100%; height:100%; object-fit:cover; border-radius:17px; display:block; filter:saturate(.83); }
-    .avatar-card:after { content:"NEGUSBRINE / ONLINE"; position:absolute; left:22px; bottom:23px; color:#fff; font:10px "DM Mono",monospace; letter-spacing:.12em; text-shadow:0 2px 8px #000; }
-    .float-tag { position:absolute; padding:11px 14px; border:1px solid var(--line); border-radius:12px; background:var(--panel); backdrop-filter:blur(14px); box-shadow:var(--shadow); font:10px "DM Mono",monospace; color:var(--muted); animation:float 5s ease-in-out infinite; }
-    .float-tag strong { color:var(--text); display:block; font:600 12px Manrope,sans-serif; margin-bottom:4px; }
-    .tag-one { top:13%; right:-1%; } .tag-two { bottom:13%; left:-2%; animation-delay:-2.5s; }
-    @keyframes float { 50% { transform:translateY(-10px); } }
-    section { padding:64px 0; }
-    .section-head { display:flex; align-items:end; justify-content:space-between; gap:20px; margin-bottom:25px; }
-    .section-index { color:var(--accent); font:11px "DM Mono",monospace; letter-spacing:.15em; }
-    h2 { margin:9px 0 0; font:600 clamp(27px,4vw,42px)/1.1 "Space Grotesk",sans-serif; letter-spacing:-.05em; }
-    .section-note { color:var(--muted); font:11px "DM Mono",monospace; }
-    .panel { border:1px solid var(--line); background:var(--panel); border-radius:22px; backdrop-filter:blur(18px); box-shadow:var(--shadow); }
-    .about-grid { display:grid; grid-template-columns:1.2fr .8fr; gap:16px; }
-    .about-copy { padding:30px; color:var(--muted); font-size:14px; line-height:1.9; }
-    .about-copy .statement { color:var(--text); font:500 clamp(20px,3vw,28px)/1.4 "Space Grotesk",sans-serif; letter-spacing:-.035em; margin:0 0 18px; }
-    .interest-card { padding:25px; }
-    .interest-card h3 { margin:0 0 18px; font:600 13px "DM Mono",monospace; color:var(--accent); }
-    .chips { display:flex; flex-wrap:wrap; gap:8px; }
-    .chip { border:1px solid var(--line); border-radius:999px; padding:8px 11px; font-size:11px; color:var(--muted); }
-    .social-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:13px; }
-    .social { min-height:125px; padding:20px; text-decoration:none; color:var(--text); display:flex; flex-direction:column; justify-content:space-between; transition:.25s; }
-    .social:hover { transform:translateY(-5px); border-color:var(--accent); box-shadow:0 12px 35px var(--glow); }
-    .social .symbol { font:20px "DM Mono",monospace; color:var(--accent); }
-    .social strong { font:600 14px "Space Grotesk",sans-serif; }
-    .social small { color:var(--muted); font:10px "DM Mono",monospace; }
-    .tools-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
-    .tool { padding:18px; min-height:88px; display:flex; align-items:center; gap:12px; color:var(--muted); font-size:12px; }
-    .tool .dot { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 13px var(--accent); flex:none; }
-    .console { overflow:hidden; }
-    .console-top { display:flex; align-items:center; gap:7px; padding:14px 17px; border-bottom:1px solid var(--line); color:var(--muted); font:10px "DM Mono",monospace; }
-    .window-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); opacity:.7; }
-    .console-body { padding:20px; font:12px/2 "DM Mono",monospace; color:var(--muted); min-height:175px; }
-    .console-body .prompt { color:var(--accent); }
-    .console-body input { width:min(65%,400px); border:0; outline:0; background:transparent; color:var(--text); font:inherit; }
-    .console-help { color:var(--muted); font-size:10px; }
-    .sound-row { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:22px 24px; }
-    .sound-info { display:flex; align-items:center; gap:15px; }
-    .rain-icon { width:45px; height:45px; border-radius:14px; display:grid; place-items:center; background:var(--glow); color:var(--accent); font-size:20px; }
-    .sound-info strong { display:block; font:600 14px "Space Grotesk",sans-serif; }
-    .sound-info small { color:var(--muted); font:10px "DM Mono",monospace; }
-    .sound-controls { display:flex; align-items:center; gap:12px; }
-    .sound-btn { border:0; border-radius:999px; padding:12px 17px; color:var(--bg); background:var(--text); font:700 11px Manrope,sans-serif; cursor:pointer; }
-    .volume { width:90px; accent-color:var(--accent); }
-    .bars { display:flex; align-items:end; gap:3px; height:27px; }
-    .bars i { display:block; width:3px; height:var(--h); border-radius:3px; background:var(--accent); opacity:.65; }
-    .playing .bars i { animation:wave .7s ease-in-out infinite alternate; animation-delay:calc(var(--i)*-0.09s); }
-    @keyframes wave { to { height:4px; } }
-    footer { padding:40px 0 30px; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:20px; color:var(--muted); font:10px "DM Mono",monospace; letter-spacing:.06em; }
-    .clock { color:var(--accent); }
-    .loader { position:fixed; inset:0; z-index:100; display:grid; place-items:center; background:#080d18; color:#edf3fb; transition:opacity .65s ease, visibility .65s ease; }
-    .loader.done { opacity:0; visibility:hidden; }
-    .loader-inner { width:min(280px,75vw); text-align:center; }
-    .loader-name { font:700 27px "Space Grotesk",sans-serif; letter-spacing:-.07em; }
-    .loader-name span { color:#9bb8d8; }
-    .loader-track { height:2px; margin-top:18px; background:rgba(155,184,216,.18); overflow:hidden; }
-    .loader-track:after { content:""; display:block; width:40%; height:100%; background:#9bb8d8; animation:loadbar 1.05s ease-in-out infinite; }
-    @keyframes loadbar { from { transform:translateX(-110%); } to { transform:translateX(360%); } }
-    .toast { position:fixed; bottom:22px; left:50%; transform:translate(-50%,20px); opacity:0; pointer-events:none; background:var(--panel-solid); color:var(--text); border:1px solid var(--line); border-radius:999px; padding:11px 16px; font:11px "DM Mono",monospace; transition:.3s; z-index:110; }
-    .toast.show { opacity:1; transform:translate(-50%,0); }
-    @media(max-width:800px) {
-      .hero { grid-template-columns:1fr; gap:5px; padding-top:55px; }
-      .visual-wrap { min-height:410px; }
-      .about-grid { grid-template-columns:1fr; }
-      .social-grid { grid-template-columns:repeat(2,1fr); }
-      .tools-grid { grid-template-columns:repeat(2,1fr); }
-      .tag-one { right:4%; } .tag-two { left:4%; }
+    html[data-mode="light"] {
+      color-scheme:light;
+      --bg:#f3eff9; --bg-soft:#e9e1f3; --surface:rgba(255,255,255,.75);
+      --surface-strong:#fffaff; --text:#241a31; --muted:#71647f;
+      --line:rgba(79,55,111,.16); --glow:rgba(var(--accent-rgb),.14);
+      --shadow:0 25px 80px rgba(62,39,84,.12);
     }
-    @media(max-width:480px) {
-      .shell { width:min(100% - 30px,1160px); }
-      header { padding:18px 0; }
-      .hero { min-height:auto; padding:55px 0 40px; }
-      .visual-wrap { min-height:350px; }
-      .avatar-card { width:220px; }
-      .float-tag { font-size:9px; }
-      section { padding:45px 0; }
-      .section-head { align-items:start; flex-direction:column; }
-      .sound-row { align-items:flex-start; flex-direction:column; }
-      .sound-controls { width:100%; justify-content:space-between; }
-      footer { flex-direction:column; }
-    }
-    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; } }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:90px}
+    body{margin:0;min-height:100vh;overflow-x:hidden;background:
+      radial-gradient(ellipse at 14% 8%,var(--glow),transparent 34%),
+      radial-gradient(ellipse at 88% 48%,rgba(var(--accent-rgb),.08),transparent 35%),
+      linear-gradient(145deg,var(--bg),var(--bg-soft) 58%,var(--bg));
+      color:var(--text);font-family:Manrope,sans-serif;transition:background .4s,color .4s}
+    body:before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.16;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E")}
+    #sky{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:.8}
+    a{color:inherit}
+    button{font:inherit}
+    .progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:120;background:linear-gradient(90deg,var(--accent-2),var(--accent));box-shadow:0 0 16px var(--accent)}
+    .shell{width:min(1160px,calc(100% - 48px));margin:auto}
+    .mono{font-family:"DM Mono",monospace}
+    .muted{color:var(--muted)}
+    /* The opening sequence */
+    .loader{position:fixed;inset:0;z-index:200;display:grid;place-items:center;background:#090711;color:#f4efff;transition:opacity .8s ease,visibility .8s ease}
+    .loader.out{opacity:0;visibility:hidden}
+    .loader-core{width:min(360px,82vw);text-align:center}
+    .loader-mark{width:106px;height:106px;margin:0 auto 30px;position:relative;display:grid;place-items:center}
+    .loader-mark .ring{position:absolute;inset:0;border:1px solid rgba(189,145,255,.35);border-radius:50%;animation:spin 7s linear infinite}
+    .loader-mark .ring:before{content:"";position:absolute;top:9px;left:13px;width:7px;height:7px;border-radius:50%;background:#d8baff;box-shadow:0 0 18px #bd91ff}
+    .loader-mark .ring.two{inset:13px;border-style:dashed;animation:spin 12s linear infinite reverse;opacity:.65}
+    .loader-mark .glyph{font:700 38px "Space Grotesk",sans-serif;letter-spacing:-.12em;color:#e6d3ff;text-shadow:0 0 30px #9864e8}
+    .loader-word{font:700 24px "Space Grotesk",sans-serif;letter-spacing:.19em}
+    .loader-word span{color:#bd91ff}
+    .loader-sub{margin-top:10px;color:#9789aa;font:9px "DM Mono",monospace;letter-spacing:.24em;text-transform:uppercase}
+    .loader-track{height:2px;background:rgba(189,145,255,.16);margin:27px auto 0;overflow:hidden;width:180px}
+    .loader-track:after{content:"";display:block;width:45%;height:100%;background:#bd91ff;box-shadow:0 0 14px #bd91ff;animation:load 1.35s cubic-bezier(.6,0,.4,1) infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes load{from{transform:translateX(-110%)}to{transform:translateX(340%)}}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:23px 0;position:relative;z-index:30}
+    .brand{text-decoration:none;font:500 12px "DM Mono",monospace;letter-spacing:.19em;color:var(--muted)}
+    .brand b{color:var(--accent);font-weight:500}
+    .top-actions{display:flex;align-items:center;gap:9px}
+    .time-pill,.control-btn,.palette-trigger{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;backdrop-filter:blur(16px)}
+    .time-pill{padding:10px 13px;font:10px "DM Mono",monospace;color:var(--muted)}
+    .time-pill span{color:var(--accent)}
+    .control-btn{height:39px;min-width:39px;padding:0 12px;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font:10px "DM Mono",monospace;transition:.2s}
+    .control-btn:hover,.palette-trigger:hover{border-color:var(--accent);color:var(--accent)}
+    .palette-wrap{position:relative}
+    .palette-trigger{height:39px;padding:0 13px;display:flex;align-items:center;gap:9px;cursor:pointer;font:10px "DM Mono",monospace}
+    .palette-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+    .palette-menu{position:absolute;right:0;top:48px;width:190px;padding:8px;border:1px solid var(--line);border-radius:15px;background:var(--surface-strong);box-shadow:var(--shadow);display:none;z-index:60}
+    .palette-menu.open{display:grid;gap:4px}
+    .palette-option{display:flex;align-items:center;gap:10px;padding:10px;border:0;border-radius:9px;background:transparent;color:var(--text);text-align:left;cursor:pointer;font:11px "DM Mono",monospace}
+    .palette-option:hover,.palette-option[aria-checked="true"]{background:var(--glow)}
+    .swatch{width:11px;height:11px;border-radius:50%;background:var(--swatch);box-shadow:0 0 9px var(--swatch)}
+    .hero{min-height:650px;display:grid;grid-template-columns:1.04fr .96fr;align-items:center;gap:50px;padding:52px 0 82px}
+    .kicker{display:flex;align-items:center;gap:12px;color:var(--accent);font:10px "DM Mono",monospace;letter-spacing:.2em;text-transform:uppercase}
+    .kicker:before{content:"";width:28px;height:1px;background:var(--accent)}
+    h1{font:700 clamp(58px,9vw,112px)/.88 "Space Grotesk",sans-serif;letter-spacing:-.095em;margin:26px 0 20px}
+    h1 .second{display:block;color:transparent;-webkit-text-stroke:1px var(--accent);padding-left:.05em}
+    .hero-line{font:500 clamp(14px,1.6vw,17px) "DM Mono",monospace;color:var(--muted);min-height:30px;margin:27px 0 15px}
+    .cursor-block{display:inline-block;width:7px;height:16px;background:var(--accent);vertical-align:-3px;margin-left:4px;animation:blink 1s steps(2) infinite}
+    @keyframes blink{50%{opacity:0}}
+    .hero-copy{max-width:480px;color:var(--muted);font-size:14px;line-height:1.9}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+    .action{display:inline-flex;align-items:center;gap:12px;padding:13px 17px;border:1px solid var(--line);border-radius:999px;text-decoration:none;background:var(--surface);font-size:11px;font-weight:700;transition:.25s}
+    .action.primary{background:var(--accent);border-color:var(--accent);color:#160d20}
+    .action:hover{transform:translateY(-3px);box-shadow:0 12px 35px var(--glow)}
+    .hero-foot{margin-top:25px;color:var(--muted);font:9px "DM Mono",monospace;letter-spacing:.13em}
+    .hero-foot i{display:inline-block;width:6px;height:6px;background:var(--good);border-radius:50%;margin-right:7px;box-shadow:0 0 10px var(--good)}
+    .visual{height:480px;position:relative;display:grid;place-items:center;perspective:1000px}
+    .halo{position:absolute;width:min(430px,95%);aspect-ratio:1;border-radius:50%;border:1px solid var(--line);transform:rotateX(69deg) rotateZ(-24deg);box-shadow:0 0 70px var(--glow),inset 0 0 60px var(--glow);animation:haloSpin 28s linear infinite}
+    .halo:before,.halo:after{content:"";position:absolute;inset:14%;border:1px solid var(--line);border-radius:50%}
+    .halo:after{inset:29%;border-style:dashed;opacity:.7}
+    @keyframes haloSpin{to{transform:rotateX(69deg) rotateZ(336deg)}}
+    .portrait-frame{position:relative;width:min(270px,65vw);aspect-ratio:.88;padding:10px;border:1px solid rgba(var(--accent-rgb),.55);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.025));box-shadow:var(--shadow),0 0 80px var(--glow);transform-style:preserve-3d;transition:transform .16s ease-out;backdrop-filter:blur(14px)}
+    .portrait-frame:before{content:"";position:absolute;inset:-7px;border:1px solid var(--line);border-radius:29px;transform:translateZ(-10px)}
+    .portrait-frame img{width:100%;height:100%;object-fit:cover;display:block;border-radius:16px;filter:saturate(.85)}
+    .portrait-label{position:absolute;left:22px;bottom:22px;color:white;font:9px "DM Mono",monospace;letter-spacing:.16em;text-shadow:0 2px 8px #000}
+    .float-note{position:absolute;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);backdrop-filter:blur(16px);box-shadow:var(--shadow);color:var(--muted);font:9px "DM Mono",monospace;animation:drift 5s ease-in-out infinite}
+    .float-note strong{display:block;color:var(--text);font:600 12px Manrope,sans-serif;margin-bottom:5px}
+    .note-a{top:13%;right:0}.note-b{bottom:13%;left:0;animation-delay:-2.5s}
+    @keyframes drift{50%{transform:translateY(-9px)}}
+    .section{padding:66px 0}
+    .section-top{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:24px}
+    .index{font:10px "DM Mono",monospace;letter-spacing:.17em;color:var(--accent)}
+    h2{font:600 clamp(28px,4vw,43px)/1.08 "Space Grotesk",sans-serif;letter-spacing:-.055em;margin:10px 0 0}
+    .aside{font:9px "DM Mono",monospace;letter-spacing:.12em;color:var(--muted)}
+    .glass{background:var(--surface);border:1px solid var(--line);border-radius:21px;backdrop-filter:blur(18px);box-shadow:var(--shadow)}
+    .about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px}
+    .manifesto{padding:30px;color:var(--muted);font-size:13px;line-height:1.95}
+    .manifesto .big-thought{font:500 clamp(20px,3vw,28px)/1.4 "Space Grotesk",sans-serif;letter-spacing:-.035em;color:var(--text);margin:0 0 18px}
+    .radar{padding:26px}
+    .radar h3{font:500 11px "DM Mono",monospace;letter-spacing:.14em;color:var(--accent);margin:0 0 18px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{border:1px solid var(--line);border-radius:99px;padding:8px 10px;color:var(--muted);font-size:10px;transition:.2s}
+    .chip:hover{border-color:var(--accent);color:var(--text);background:var(--glow)}
+    .link-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .link-card{min-height:145px;padding:19px;text-decoration:none;display:flex;flex-direction:column;justify-content:space-between;transition:.25s}
+    .link-card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 14px 36px var(--glow)}
+    .link-icon{font:22px "DM Mono",monospace;color:var(--accent)}
+    .link-card strong{font:600 15px "Space Grotesk",sans-serif}
+    .link-card small{font:9px "DM Mono",monospace;color:var(--muted)}
+    .link-card.discord{width:100%;text-align:left;color:var(--text);cursor:pointer}
+    .interest-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+    .interest{min-height:82px;padding:17px;display:flex;align-items:center;gap:11px;color:var(--muted);font-size:11px}
+    .interest:before{content:"";width:6px;height:6px;flex:none;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+    .now-panel{padding:25px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:20px}
+    .now-panel h3{font:600 16px "Space Grotesk",sans-serif;margin:0 0 8px}
+    .now-panel p{font-size:12px;line-height:1.8;color:var(--muted);margin:0;max-width:700px}
+    .status-tag{border:1px solid var(--line);border-radius:99px;padding:9px 12px;color:var(--accent);font:9px "DM Mono",monospace;white-space:nowrap}
+    .terminal{overflow:hidden}
+    .terminal-head{display:flex;align-items:center;gap:7px;padding:14px 17px;border-bottom:1px solid var(--line);font:9px "DM Mono",monospace;color:var(--muted)}
+    .terminal-head i{width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.7}
+    .terminal-body{padding:20px;font:11px/2 "DM Mono",monospace;color:var(--muted);min-height:170px;max-height:300px;overflow:auto}
+    .terminal-body .prompt{color:var(--accent)}
+    .terminal-body input{width:min(70%,440px);border:0;outline:0;background:transparent;color:var(--text);font:inherit}
+    .terminal-hint{font-size:9px;color:var(--muted)}
+    .ambience{padding:24px;display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center}
+    .ambience-info{display:flex;gap:14px;align-items:center}
+    .sound-symbol{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:var(--glow);color:var(--accent);font-size:22px}
+    .ambience-info strong{font:600 14px "Space Grotesk",sans-serif;display:block}
+    .ambience-info small{font:9px "DM Mono",monospace;color:var(--muted);display:block;margin-top:5px}
+    .sound-controls{display:flex;align-items:center;gap:13px}
+    .sound-button{border:0;border-radius:99px;padding:12px 17px;background:var(--accent);color:#160d20;font-size:10px;font-weight:800;cursor:pointer}
+    .volume{width:86px;accent-color:var(--accent)}
+    .sound-wave{height:25px;display:flex;align-items:center;gap:3px}
+    .sound-wave i{width:3px;height:var(--h);border-radius:3px;background:var(--accent);opacity:.7}
+    .ambience.playing .sound-wave i{animation:breathe 1.6s ease-in-out infinite alternate;animation-delay:calc(var(--i)*-.16s)}
+    @keyframes breathe{to{height:5px;opacity:.3}}
+    .sound-caption{grid-column:1/-1;color:var(--muted);font:9px "DM Mono",monospace;margin-top:-8px}
+    footer{padding:37px 0 29px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;color:var(--muted);font:9px "DM Mono",monospace;letter-spacing:.08em}
+    .toast{position:fixed;bottom:23px;left:50%;transform:translate(-50%,18px);opacity:0;pointer-events:none;z-index:160;padding:11px 16px;border:1px solid var(--line);border-radius:99px;background:var(--surface-strong);color:var(--text);font:10px "DM Mono",monospace;transition:.25s}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    .back-top{position:fixed;right:22px;bottom:22px;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--text);cursor:pointer;opacity:0;pointer-events:none;transform:translateY(8px);transition:.25s;z-index:50;backdrop-filter:blur(14px)}
+    .back-top.visible{opacity:1;pointer-events:auto;transform:none}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.seen{opacity:1;transform:none}
+    @media(max-width:850px){.hero{grid-template-columns:1fr;gap:0;padding-top:55px}.visual{height:420px}.about-grid{grid-template-columns:1fr}.link-grid{grid-template-columns:repeat(2,1fr)}.interest-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.shell{width:calc(100% - 30px)}.topbar{padding:16px 0}.time-pill{display:none}.palette-trigger{font-size:9px}.hero{padding:48px 0 35px;min-height:auto}.visual{height:360px}.portrait-frame{width:220px}.float-note{font-size:8px}.section{padding:47px 0}.section-top{align-items:start;flex-direction:column}.now-panel,.ambience{grid-template-columns:1fr}.sound-controls{justify-content:space-between}.sound-caption{margin-top:0}footer{flex-direction:column}.toast{width:max-content;max-width:calc(100% - 30px);white-space:normal;text-align:center}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
   </style>
 </head>
 <body>
-  <div class="loader" id="loader" aria-label="Loading website"><div class="loader-inner"><div class="loader-name">NEGUS<span>BRINE</span></div><div style="margin-top:8px;color:#9aaac0;font:10px 'DM Mono',monospace;letter-spacing:.2em">ENTERING PERSONAL SPACE</div><div class="loader-track"></div></div></div>
-  <canvas id="stars" aria-hidden="true"></canvas>
-  <div class="cursor" id="cursor"></div>
+  <div class="progress" id="progress"></div>
+  <div class="loader" id="loader" aria-label="Loading NEGUSBRINE">
+    <div class="loader-core">
+      <div class="loader-mark"><div class="ring"></div><div class="ring two"></div><div class="glyph">N<span style="color:#bd91ff">.</span></div></div>
+      <div class="loader-word">NEGUS<span>BRINE</span></div>
+      <div class="loader-sub">tuning into the quiet signal</div>
+      <div class="loader-track"></div>
+    </div>
+  </div>
+  <canvas id="sky" aria-hidden="true"></canvas>
   <div class="shell">
-    <header>
-      <a class="brand" href="#top">N<span>.</span>B / PERSONAL SPACE</a>
-      <div class="top-right">
-        <span class="pill"><span class="clock" id="clock">--:--:--</span> LOCAL</span>
-        <span class="pill" title="Visits recorded only in this browser">VISITS <span class="clock" id="visitCount">1</span></span>
-        <button class="icon-btn" id="themeToggle" aria-label="Toggle light and dark theme" title="Toggle theme">☼</button>
+    <header class="topbar">
+      <a class="brand" href="#top">N<span>.</span><b>B</b> &nbsp;/&nbsp; PERSONAL FREQUENCY</a>
+      <div class="top-actions">
+        <span class="time-pill"><span id="clock">--:--:--</span> &nbsp;LOCAL</span>
+        <div class="palette-wrap">
+          <button class="palette-trigger" id="paletteTrigger" aria-haspopup="true" aria-expanded="false"><span class="palette-dot"></span><span id="paletteName">ULTRAVIOLET</span>⌄</button>
+          <div class="palette-menu" id="paletteMenu" role="menu" aria-label="Choose color palette">
+            <button class="palette-option" role="menuitemradio" aria-checked="true" data-palette="ultraviolet"><i class="swatch" style="--swatch:#bd91ff"></i>Ultraviolet</button>
+            <button class="palette-option" role="menuitemradio" aria-checked="false" data-palette="amethyst"><i class="swatch" style="--swatch:#f0a4df"></i>Amethyst</button>
+            <button class="palette-option" role="menuitemradio" aria-checked="false" data-palette="midnight"><i class="swatch" style="--swatch:#83d2ff"></i>Midnight</button>
+            <button class="palette-option" role="menuitemradio" aria-checked="false" data-palette="ember"><i class="swatch" style="--swatch:#ffbd83"></i>Ember</button>
+            <button class="palette-option" role="menuitemradio" aria-checked="false" data-palette="moss"><i class="swatch" style="--swatch:#a9e6b2"></i>Moss</button>
+          </div>
+        </div>
+        <button class="control-btn" id="modeToggle" aria-label="Toggle light and dark mode" title="Toggle light and dark mode">☼</button>
       </div>
     </header>
 
     <main id="top">
-      <div class="hero">
-        <div>
-          <div class="eyebrow">A LITTLE CORNER OF THE INTERNET</div>
-          <h1>NEGUS<span class="outline">BRINE</span></h1>
-          <div class="tagline"><span id="typed"></span><span class="caret"></span></div>
-          <p class="intro">Religion, Philosophy, Ideology, Technology (Arch btw), Gaming.</p>
+      <section class="hero">
+        <div class="reveal">
+          <div class="kicker">A PERSONAL FREQUENCY · EST. ONLINE</div>
+          <h1>NEGUS<span class="second">BRINE.</span></h1>
+          <div class="hero-line"><span id="typed"></span><span class="cursor-block"></span></div>
+          <p class="hero-copy">A small signal in a very loud internet. A place for questions, experiments, half-finished ideas and things worth getting curious about.</p>
           <div class="hero-actions">
-            <a class="cta primary" href="#links">Find me online <span>↗</span></a>
-            <a class="cta" href="mailto:negusbrn@gmail.com">Send an email <span>↗</span></a>
+            <a class="action primary" href="#links">Explore my corners <span>↗</span></a>
+            <a class="action" href="mailto:negusbrn@gmail.com">Send a signal <span>↗</span></a>
           </div>
+          <div class="hero-foot"><i></i> TRANSMISSION ACTIVE &nbsp;·&nbsp; BUILT WITH CURIOSITY</div>
         </div>
-        <div class="visual-wrap" id="visual">
-          <div class="orbital"></div>
-          <div class="float-tag tag-one"><strong>ARCH BTW</strong>BTW, I use Linux.</div>
-          <div class="float-tag tag-two"><strong>STATUS / ONLINE</strong>Somewhere on the internet</div>
-          <div class="avatar-card" id="avatarCard">
+        <div class="visual reveal" id="visual">
+          <div class="halo"></div>
+          <div class="float-note note-a"><strong>ARCH BTW</strong>BTW, I use Linux.</div>
+          <div class="float-note note-b"><strong>STATUS / ONLINE</strong>Somewhere on the internet</div>
+          <div class="portrait-frame" id="portraitFrame">
             <img src="assets/negusbrine-avatar.jpeg" alt="NEGUSBRINE's illustrated avatar">
+            <div class="portrait-label">NEGUSBRINE / ONLINE</div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <section id="about">
-        <div class="section-head">
-          <div><div class="section-index">01 / THE PERSON</div><h2>A mind in progress.</h2></div>
-          <div class="section-note">NO FIXED BOXES. JUST CURIOSITY.</div>
-        </div>
+      <section class="section reveal" id="about">
+        <div class="section-top"><div><div class="index">01 — THE HUMAN BEHIND THE TAB</div><h2>Not a finished product.</h2></div><div class="aside">CURIOSITY OVER CERTAINTY</div></div>
         <div class="about-grid">
-          <div class="panel about-copy">
-            <p class="statement">Curious about how things work, why people believe what they believe, and what might be possible next.</p>
-            This space is a small snapshot of the things I explore, build, question and enjoy. A digital home for ideas, experiments and whatever catches my curiosity.
-          </div>
-          <div class="panel interest-card">
-            <h3>THINGS ON MY RADAR</h3>
-            <div class="chips">
-              <span class="chip">Linux / Arch Linux</span><span class="chip">Open source</span>
-              <span class="chip">Python</span><span class="chip">Artificial intelligence</span>
-              <span class="chip">Cybersecurity</span><span class="chip">Self-hosting</span>
-              <span class="chip">Technology & hardware</span><span class="chip">Entrepreneurship</span>
-            </div>
-          </div>
+          <div class="glass manifesto"><p class="big-thought">I like pulling at the threads of things — ideas, systems, beliefs, and the technology we build around them.</p>This is my little corner to collect what I am learning, make things, ask better questions and occasionally disappear down a very specific rabbit hole.</div>
+          <div class="glass radar"><h3>FREQUENCIES I TUNE INTO</h3><div class="chips">
+            <span class="chip">Religion</span><span class="chip">Philosophy</span><span class="chip">Ideology</span><span class="chip">Arch Linux</span><span class="chip">Open source</span><span class="chip">Python</span><span class="chip">Artificial intelligence</span><span class="chip">Cybersecurity</span><span class="chip">Self-hosting</span><span class="chip">Hardware</span><span class="chip">Gaming</span><span class="chip">Entrepreneurship</span>
+          </div></div>
         </div>
       </section>
 
-      <section id="links">
-        <div class="section-head">
-          <div><div class="section-index">02 / ELSEWHERE</div><h2>Find me around.</h2></div>
-          <div class="section-note">SAME HUMAN, DIFFERENT TABS.</div>
-        </div>
-        <div class="social-grid">
-          <a class="panel social" href="https://www.instagram.com/negusbrine/" target="_blank" rel="noopener noreferrer"><span class="symbol">◎</span><strong>Instagram</strong><small>@negusbrine ↗</small></a>
-          <a class="panel social" href="https://github.com/negusbrine" target="_blank" rel="noopener noreferrer"><span class="symbol">⌘</span><strong>GitHub</strong><small>negusbrine ↗</small></a>
-          <a class="panel social" href="mailto:negusbrn@gmail.com"><span class="symbol">✉</span><strong>Email</strong><small>Say hello ↗</small></a>
-          <button class="panel social" id="discordCopy" style="text-align:left;cursor:pointer;font-family:inherit"><span class="symbol">◈</span><strong>Discord</strong><small>negusbrine · click to copy</small></button>
+      <section class="section reveal" id="links">
+        <div class="section-top"><div><div class="index">02 — OTHER PLACES I EXIST</div><h2>Find the signal elsewhere.</h2></div><div class="aside">SAME HUMAN, DIFFERENT TABS</div></div>
+        <div class="link-grid">
+          <a class="glass link-card" href="https://www.instagram.com/negusbrine/" target="_blank" rel="noopener noreferrer"><span class="link-icon">◎</span><strong>Instagram</strong><small>@negusbrine ↗</small></a>
+          <a class="glass link-card" href="https://github.com/negusbrine" target="_blank" rel="noopener noreferrer"><span class="link-icon">⌘</span><strong>GitHub</strong><small>negusbrine ↗</small></a>
+          <a class="glass link-card" href="mailto:negusbrn@gmail.com"><span class="link-icon">↗</span><strong>Email</strong><small>Say hello ↗</small></a>
+          <button class="glass link-card discord" id="discordCopy"><span class="link-icon">◈</span><strong>Discord</strong><small>negusbrine · click to copy</small></button>
         </div>
       </section>
 
-      <section id="interests">
-        <div class="section-head">
-          <div><div class="section-index">03 / CURRENTLY EXPLORING</div><h2>Curiosity, in no order.</h2></div>
-        </div>
-        <div class="tools-grid">
-          <div class="panel tool"><span class="dot"></span>Linux & Arch Linux</div>
-          <div class="panel tool"><span class="dot"></span>Open-source software</div>
-          <div class="panel tool"><span class="dot"></span>Programming / Python</div>
-          <div class="panel tool"><span class="dot"></span>Artificial intelligence</div>
-          <div class="panel tool"><span class="dot"></span>Cybersecurity</div>
-          <div class="panel tool"><span class="dot"></span>Self-hosting</div>
-          <div class="panel tool"><span class="dot"></span>Technology & hardware</div>
-          <div class="panel tool"><span class="dot"></span>Entrepreneurship</div>
+      <section class="section reveal" id="interests">
+        <div class="section-top"><div><div class="index">03 — OPEN TABS</div><h2>Things currently on my mind.</h2></div></div>
+        <div class="interest-grid">
+          <div class="glass interest">Linux & Arch Linux</div><div class="glass interest">Open-source software</div><div class="glass interest">Programming / Python</div><div class="glass interest">Artificial intelligence</div>
+          <div class="glass interest">Cybersecurity</div><div class="glass interest">Self-hosting</div><div class="glass interest">Technology & hardware</div><div class="glass interest">Entrepreneurship</div>
         </div>
       </section>
 
-      <section id="terminal">
-        <div class="section-head">
-          <div><div class="section-index">04 / THE LITTLE TERMINAL</div><h2>Have a look around.</h2></div>
-          <div class="section-note">TRY: HELP</div>
-        </div>
-        <div class="panel console">
-          <div class="console-top"><i class="window-dot"></i><i class="window-dot"></i><i class="window-dot"></i><span style="margin-left:8px">negusbrine@internet: ~</span></div>
-          <div class="console-body" id="consoleOutput">
-            <div>Welcome to the tiny corner terminal.</div>
-            <div>Type <span class="prompt">help</span> to see available commands.</div>
-            <div><span class="prompt">negusbrine@web:~$ </span><input id="command" aria-label="Terminal command" autocomplete="off" spellcheck="false" placeholder="type a command..."></div>
-            <div class="console-help">Try: about · interests · links · date · clear · sudo</div>
+      <section class="section reveal" id="now">
+        <div class="section-top"><div><div class="index">04 — CURRENT TRANSMISSION</div><h2>At this point in time.</h2></div><div class="aside">SUBJECT TO CHANGE</div></div>
+        <div class="glass now-panel"><div><h3>Learning. Building. Questioning.</h3><p>Exploring open technology, building small projects, learning how systems work and following interesting questions wherever they lead. The internet is a pretty big place — might as well explore it.</p></div><span class="status-tag">● IN PROGRESS</span></div>
+      </section>
+
+      <section class="section reveal" id="terminal">
+        <div class="section-top"><div><div class="index">05 — THE BACK CHANNEL</div><h2>Talk to the little terminal.</h2></div><div class="aside">PRESS / TO FOCUS</div></div>
+        <div class="glass terminal">
+          <div class="terminal-head"><i></i><i></i><i></i><span style="margin-left:8px">negusbrine@signal: ~</span></div>
+          <div class="terminal-body" id="terminalOutput">
+            <div>Connection established. Welcome, visitor.</div><div>Type <span class="prompt">help</span> to inspect available commands.</div>
+            <div><span class="prompt">guest@negusbrine:~$ </span><input id="command" aria-label="Terminal command" autocomplete="off" spellcheck="false" placeholder="enter a command..."></div>
+            <div class="terminal-hint">help · about · interests · links · date · uptime · clear · sudo</div>
           </div>
         </div>
       </section>
 
-      <section id="rain">
-        <div class="section-head">
-          <div><div class="section-index">05 / AMBIENCE</div><h2>A little rain.</h2></div>
-          <div class="section-note">BEST WITH HEADPHONES.</div>
-        </div>
-        <div class="panel sound-row" id="soundPanel">
-          <div class="sound-info">
-            <div class="rain-icon">雨</div>
-            <div><strong>Heavy rain ambience</strong><small id="rainStatus">A storm, whenever you need one.</small></div>
-          </div>
+      <section class="section reveal" id="ambience">
+        <div class="section-top"><div><div class="index">06 — A MOMENT OF QUIET</div><h2>Take a breath.</h2></div><div class="aside">OPTIONAL AMBIENT SOUND</div></div>
+        <div class="glass ambience" id="ambiencePanel">
+          <div class="ambience-info"><div class="sound-symbol">✧</div><div><strong>Soft ambient drift</strong><small id="soundStatus">A gentle, slow-moving soundscape. Starts only when you ask.</small></div></div>
           <div class="sound-controls">
-            <div class="bars" aria-hidden="true"><i style="--h:18px;--i:1"></i><i style="--h:25px;--i:2"></i><i style="--h:12px;--i:3"></i><i style="--h:21px;--i:4"></i><i style="--h:15px;--i:5"></i><i style="--h:26px;--i:6"></i><i style="--h:17px;--i:7"></i><i style="--h:23px;--i:8"></i><i style="--h:13px;--i:9"></i></div>
-            <input class="volume" id="volume" type="range" min="0" max="100" value="45" aria-label="Rain volume">
-            <button class="sound-btn" id="rainToggle">▶ Play rain</button>
+            <div class="sound-wave" aria-hidden="true"><i style="--h:8px;--i:1"></i><i style="--h:17px;--i:2"></i><i style="--h:11px;--i:3"></i><i style="--h:22px;--i:4"></i><i style="--h:14px;--i:5"></i><i style="--h:20px;--i:6"></i><i style="--h:9px;--i:7"></i></div>
+            <input class="volume" id="volume" type="range" min="0" max="100" value="28" aria-label="Ambient sound volume">
+            <button class="sound-button" id="soundToggle">▶ Begin</button>
           </div>
+          <div class="sound-caption">GENERATED LOCALLY IN YOUR BROWSER · NO AUDIO FILES OR EXTERNAL STREAMS</div>
         </div>
       </section>
     </main>
-
-    <footer>
-      <span>© <span id="year"></span> NEGUSBRINE. MADE OF CURIOSITY.</span>
-      <span>LOCAL TIME: <span class="clock" id="footerClock">--:--</span></span>
-      <span>BUILT FOR THE OPEN WEB ↗</span>
-    </footer>
+    <footer><span>© <span id="year"></span> NEGUSBRINE. MADE OF CURIOSITY.</span><span>LOCAL TIME: <span id="footerClock" style="color:var(--accent)">--:--</span></span><span>KEEP QUESTIONING ↗</span></footer>
   </div>
-  <div class="toast" id="toast" role="status"></div>
+  <button class="back-top" id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    // Starfield background
-    const canvas = document.getElementById('stars'), ctx = canvas.getContext('2d');
-    let stars = [], width, height;
-    function resizeStars() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = innerWidth; height = innerHeight;
-      canvas.width = width*dpr; canvas.height = height*dpr;
-      canvas.style.width = width+'px'; canvas.style.height = height+'px';
-      ctx.setTransform(dpr,0,0,dpr,0,0);
-      stars = Array.from({length: Math.min(130, Math.floor(width*height/8500))}, () => ({
-        x:Math.random()*width, y:Math.random()*height, r:Math.random()*1.4+.25,
-        a:Math.random()*.65+.15, speed:Math.random()*.006+.002, phase:Math.random()*7
-      }));
-    }
-    function drawStars(t=0) {
-      ctx.clearRect(0,0,width,height);
-      for (const s of stars) {
-        const alpha = s.a*(.65+.35*Math.sin(t*s.speed+s.phase));
-        ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-        ctx.fillStyle = `rgba(183,211,241,${alpha})`; ctx.fill();
-      }
-      requestAnimationFrame(drawStars);
-    }
-    resizeStars(); requestAnimationFrame(drawStars); addEventListener('resize',resizeStars);
+    // Subtle starfield, with reduced-motion support.
+    const sky=document.getElementById('sky'),ctx=sky.getContext('2d');
+    let stars=[],w=0,h=0,starFrame;
+    const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function resizeSky(){const dpr=Math.min(devicePixelRatio||1,2);w=innerWidth;h=innerHeight;sky.width=w*dpr;sky.height=h*dpr;sky.style.width=w+'px';sky.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);stars=Array.from({length:Math.min(105,Math.floor(w*h/10000))},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.25+.25,a:Math.random()*.55+.12,p:Math.random()*6,s:Math.random()*.0015+.0005}));}
+    function drawSky(t=0){ctx.clearRect(0,0,w,h);for(const s of stars){ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(211,190,255,${s.a*(.72+.28*Math.sin(t*s.s+s.p))})`;ctx.fill()}if(!reduceMotion)starFrame=requestAnimationFrame(drawSky);}
+    resizeSky();drawSky();addEventListener('resize',resizeSky);
 
-    // Local clock
-    function updateClock() {
-      const now = new Date();
-      const time = now.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'});
-      document.getElementById('clock').textContent = time;
-      document.getElementById('footerClock').textContent = time;
-      document.getElementById('year').textContent = now.getFullYear();
-    }
-    updateClock(); setInterval(updateClock,1000);
+    // Opening sequence: no artificial delay after page load.
+    addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('out'),500));
 
-    // Local-only visit counter (not a global public counter)
-    const visitKey='negusbrine-local-visits';
-    const visits=(Number(localStorage.getItem(visitKey))||0)+1;
-    localStorage.setItem(visitKey,String(visits));
-    document.getElementById('visitCount').textContent=visits;
+    // Clock and footer year.
+    function clock(){const now=new Date(),t=now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});document.getElementById('clock').textContent=t;document.getElementById('footerClock').textContent=t;document.getElementById('year').textContent=now.getFullYear();}
+    clock();setInterval(clock,1000);
 
-    // Custom intro loader
-    addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('done'),450));
+    // Palette picker and mode toggle; both persist locally.
+    const paletteNames={ultraviolet:'ULTRAVIOLET',amethyst:'AMETHYST',midnight:'MIDNIGHT',ember:'EMBER',moss:'MOSS'};
+    const root=document.documentElement,paletteMenu=document.getElementById('paletteMenu'),paletteTrigger=document.getElementById('paletteTrigger');
+    const savedPalette=localStorage.getItem('negus-palette');
+    if(savedPalette&&paletteNames[savedPalette])root.dataset.palette=savedPalette;
+    function refreshPalette(){const p=root.dataset.palette||'ultraviolet';document.getElementById('paletteName').textContent=paletteNames[p];document.querySelectorAll('.palette-option').forEach(b=>b.setAttribute('aria-checked',String(b.dataset.palette===p)));}
+    refreshPalette();
+    paletteTrigger.addEventListener('click',()=>{const open=paletteMenu.classList.toggle('open');paletteTrigger.setAttribute('aria-expanded',String(open));});
+    document.querySelectorAll('.palette-option').forEach(b=>b.addEventListener('click',()=>{root.dataset.palette=b.dataset.palette;localStorage.setItem('negus-palette',b.dataset.palette);refreshPalette();paletteMenu.classList.remove('open');paletteTrigger.setAttribute('aria-expanded','false');showToast(`${paletteNames[b.dataset.palette]} palette activated`);}));
+    document.addEventListener('click',e=>{if(!e.target.closest('.palette-wrap')){paletteMenu.classList.remove('open');paletteTrigger.setAttribute('aria-expanded','false');}});
+    const modeToggle=document.getElementById('modeToggle');
+    if(localStorage.getItem('negus-mode')==='light')root.dataset.mode='light';
+    function modeIcon(){modeToggle.textContent=root.dataset.mode==='light'?'☾':'☼';}
+    modeIcon();
+    modeToggle.addEventListener('click',()=>{if(root.dataset.mode==='light')delete root.dataset.mode;else root.dataset.mode='light';localStorage.setItem('negus-mode',root.dataset.mode||'dark');modeIcon();});
 
-    // Typing intro
-    const phrases = ['Question everything. Stay curious.','Exploring ideas & open technology.','BTW, I use Arch.'];
-    let phrase=0, char=0, deleting=false;
-    const typed=document.getElementById('typed');
-    function typeLoop() {
-      const current=phrases[phrase];
-      typed.textContent=current.slice(0,char);
-      if (!deleting && char<current.length) { char++; setTimeout(typeLoop,65); }
-      else if (!deleting) { deleting=true; setTimeout(typeLoop,1450); }
-      else if (char>0) { char--; setTimeout(typeLoop,28); }
-      else { deleting=false; phrase=(phrase+1)%phrases.length; setTimeout(typeLoop,350); }
-    }
-    typeLoop();
+    // Rotating type line.
+    const lines=['Question everything. Stay curious.','Ideas are worth exploring.','BTW, I use Arch.','Building my own little corner.'];
+    let lineIndex=0,letter=0,erase=false;const typed=document.getElementById('typed');
+    function type(){const s=lines[lineIndex];typed.textContent=s.slice(0,letter);if(!erase&&letter<s.length){letter++;setTimeout(type,62)}else if(!erase){erase=true;setTimeout(type,1450)}else if(letter>0){letter--;setTimeout(type,27)}else{erase=false;lineIndex=(lineIndex+1)%lines.length;setTimeout(type,300)}}
+    type();
 
-    // Theme switch with persistence
-    const themeButton=document.getElementById('themeToggle');
-    const savedTheme=localStorage.getItem('negus-theme');
-    if(savedTheme) document.documentElement.dataset.theme=savedTheme;
-    themeButton.addEventListener('click',()=>{
-      const next=document.documentElement.dataset.theme==='light'?'dark':'light';
-      document.documentElement.dataset.theme=next;
-      localStorage.setItem('negus-theme',next);
-      themeButton.textContent=next==='light'?'☾':'☼';
-    });
-    if(savedTheme==='light') themeButton.textContent='☾';
+    // Avatar tilt and custom pointer, only on fine pointers.
+    const portrait=document.getElementById('portraitFrame');
+    if(matchMedia('(pointer:fine)').matches){addEventListener('mousemove',e=>{const r=portrait.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;if(e.clientX>r.left-75&&e.clientX<r.right+75&&e.clientY>r.top-75&&e.clientY<r.bottom+75)portrait.style.transform=`rotateY(${x*10}deg) rotateX(${-y*10}deg)`;else portrait.style.transform='rotateY(0) rotateX(0)';});}
 
-    // Mouse-follow card tilt and custom cursor
-    const card=document.getElementById('avatarCard'), cursor=document.getElementById('cursor');
-    if(matchMedia('(pointer:fine)').matches) {
-      addEventListener('mousemove',e=>{
-        cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px';
-        const r=card.getBoundingClientRect();
-        const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
-        if(e.clientX>r.left-80 && e.clientX<r.right+80 && e.clientY>r.top-80 && e.clientY<r.bottom+80)
-          card.style.transform=`rotateY(${x*12}deg) rotateX(${-y*12}deg) translateZ(8px)`;
-        else card.style.transform='rotateY(0) rotateX(0)';
-      });
-      document.querySelectorAll('a,button').forEach(el=>{
-        el.addEventListener('mouseenter',()=>cursor.classList.add('active'));
-        el.addEventListener('mouseleave',()=>cursor.classList.remove('active'));
-      });
-    }
+    // Small notification and Discord copy.
+    const toast=document.getElementById('toast');let toastTimer;
+    function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2200);}
+    document.getElementById('discordCopy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText('negusbrine');showToast('Discord username copied.')}catch{showToast('Discord: negusbrine')}});
 
-    // Toast and Discord copy
-    const toast=document.getElementById('toast');
-    function showToast(msg) { toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),2100); }
-    document.getElementById('discordCopy').addEventListener('click',async()=>{
-      try { await navigator.clipboard.writeText('negusbrine'); showToast('Discord username copied.'); }
-      catch { showToast('Discord: negusbrine'); }
-    });
-
-    // Tiny interactive terminal
-    const input=document.getElementById('command'), output=document.getElementById('consoleOutput');
+    // Terminal: textContent prevents typed input from being interpreted as markup.
+    const commandInput=document.getElementById('command'),terminal=document.getElementById('terminalOutput'),openedAt=Date.now();
     const commands={
-      help:'Available commands: help, about, interests, links, date, clear, sudo',
-      about:'NEGUSBRINE — curious about religion, philosophy, ideology, technology and gaming.',
+      help:'Commands: help, about, interests, links, date, uptime, clear, sudo',
+      about:'NEGUSBRINE — religion, philosophy, ideology, technology and gaming.',
       interests:'Arch Linux · Open source · Python · AI · Cybersecurity · Self-hosting · Hardware · Entrepreneurship',
-      links:'Instagram: instagram.com/negusbrine_ | GitHub: github.com/negusbrine | Email: negusbrn@gmail.com | Discord: negusbrine',
+      links:'Instagram: instagram.com/negusbrine/ | GitHub: github.com/negusbrine | Email: negusbrn@gmail.com | Discord: negusbrine',
       date:()=>new Date().toString(),
-      sudo:'Nice try. You already have the guest privileges you need. :)'
+      uptime:()=>{const s=Math.floor((Date.now()-openedAt)/1000);return `This page has been open for ${Math.floor(s/60)}m ${s%60}s.`},
+      sudo:'Guest privileges are quite enough for this little corner. :)'
     };
-    input.addEventListener('keydown',e=>{
-      if(e.key!=='Enter') return;
-      const cmd=input.value.trim().toLowerCase();
-      const line=document.createElement('div'); line.innerHTML='<span class="prompt">negusbrine@web:~$ </span>';
-      const safe=document.createElement('span'); safe.textContent=cmd; line.appendChild(safe);
-      output.insertBefore(line,input.parentElement);
-      if(cmd==='clear') {
-        [...output.children].forEach((el,i)=>{if(i<output.children.length-1)el.remove();});
-      } else {
-        const result=document.createElement('div');
-        result.textContent=cmd in commands ? (typeof commands[cmd]==='function'?commands[cmd]():commands[cmd]) : `command not found: ${cmd || '(empty)'}`;
-        output.insertBefore(result,input.parentElement);
-      }
-      input.value='';
-      output.scrollTop=output.scrollHeight;
-    });
+    function execute(raw){const cmd=raw.trim().toLowerCase(),row=document.createElement('div'),p=document.createElement('span'),v=document.createElement('span');p.className='prompt';p.textContent='guest@negusbrine:~$ ';v.textContent=raw;row.append(p,v);terminal.insertBefore(row,commandInput.parentElement);
+      if(cmd==='clear'){[...terminal.children].forEach(el=>{if(el!==commandInput.parentElement)el.remove()});}
+      else{const result=document.createElement('div');result.textContent=cmd in commands?(typeof commands[cmd]==='function'?commands[cmd]():commands[cmd]):`command not found: ${cmd||'(empty)'}`;terminal.insertBefore(result,commandInput.parentElement);}
+      commandInput.value='';terminal.scrollTop=terminal.scrollHeight;}
+    commandInput.addEventListener('keydown',e=>{if(e.key==='Enter')execute(commandInput.value);});
+    addEventListener('keydown',e=>{if(e.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();document.getElementById('terminal').scrollIntoView({behavior:'smooth'});setTimeout(()=>commandInput.focus(),350);}});
 
-    // Procedural heavy-rain ambience. Audio starts only after visitor presses Play.
-    let audioCtx=null, rainSource=null, rainGain=null, rumbleGain=null, filter=null, rainPlaying=false;
-    function createRain() {
-      audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)();
-      const bufferSize=audioCtx.sampleRate*4;
-      const buffer=audioCtx.createBuffer(1,bufferSize,audioCtx.sampleRate);
-      const data=buffer.getChannelData(0);
-      for(let i=0;i<bufferSize;i++) data[i]=(Math.random()*2-1)*(.65+Math.random()*.35);
-      rainSource=audioCtx.createBufferSource(); rainSource.buffer=buffer; rainSource.loop=true;
-      filter=audioCtx.createBiquadFilter(); filter.type='lowpass'; filter.frequency.value=4300; filter.Q.value=.45;
-      rainGain=audioCtx.createGain(); rainGain.gain.value=0;
-      rainSource.connect(filter).connect(rainGain).connect(audioCtx.destination);
-      // A softer low-frequency storm rumble underneath the rain.
-      const osc=audioCtx.createOscillator(); osc.type='triangle'; osc.frequency.value=48;
-      rumbleGain=audioCtx.createGain(); rumbleGain.gain.value=0;
-      const rumbleFilter=audioCtx.createBiquadFilter(); rumbleFilter.type='lowpass'; rumbleFilter.frequency.value=95;
-      osc.connect(rumbleFilter).connect(rumbleGain).connect(audioCtx.destination);
-      osc.start(); rainSource.start();
-      window._rainOsc=osc;
+    // A gentle, generated ambient pad with slow evolving tones and soft shimmer.
+    // Audio context is created only after a deliberate click.
+    let audio=null,master=null,voices=[],ambientOn=false;
+    function createAmbience(){
+      audio=new(window.AudioContext||window.webkitAudioContext)();
+      master=audio.createGain();master.gain.value=0;master.connect(audio.destination);
+      const filter=audio.createBiquadFilter();filter.type='lowpass';filter.frequency.value=850;filter.Q.value=.35;filter.connect(master);
+      const frequencies=[110,164.81,220,329.63];
+      frequencies.forEach((hz,i)=>{const osc=audio.createOscillator(),gain=audio.createGain(),pan=audio.createStereoPanner();osc.type=i===3?'sine':'triangle';osc.frequency.value=hz;gain.gain.value=[.22,.12,.09,.035][i];pan.pan.value=(i-1.5)*.35;osc.connect(gain).connect(pan).connect(filter);osc.start();voices.push({osc,gain});});
+      // Very soft high shimmer, filtered to avoid sharp tones.
+      const shimmer=audio.createOscillator(),shimmerGain=audio.createGain(),shimmerFilter=audio.createBiquadFilter();
+      shimmer.type='sine';shimmer.frequency.value=523.25;shimmerGain.gain.value=.012;shimmerFilter.type='lowpass';shimmerFilter.frequency.value=1200;
+      shimmer.connect(shimmerGain).connect(shimmerFilter).connect(master);shimmer.start();voices.push({osc:shimmer,gain:shimmerGain});
     }
-    const rainButton=document.getElementById('rainToggle'), volume=document.getElementById('volume'), soundPanel=document.getElementById('soundPanel');
-    function setRainVolume() {
-      if(!audioCtx) return;
-      const v=Number(volume.value)/100;
-      rainGain.gain.setTargetAtTime(v*.22,audioCtx.currentTime,.12);
-      rumbleGain.gain.setTargetAtTime(v*.075,audioCtx.currentTime,.2);
-    }
-    rainButton.addEventListener('click',async()=>{
-      if(!rainPlaying) {
-        if(!audioCtx) createRain();
-        await audioCtx.resume(); setRainVolume(); rainPlaying=true;
-        rainButton.textContent='Ⅱ Pause rain'; document.getElementById('rainStatus').textContent='Storm is rolling. Adjust the volume.';
-        soundPanel.classList.add('playing');
-      } else {
-        rainGain.gain.setTargetAtTime(0,audioCtx.currentTime,.12);
-        rumbleGain.gain.setTargetAtTime(0,audioCtx.currentTime,.12);
-        rainPlaying=false; rainButton.textContent='▶ Play rain';
-        document.getElementById('rainStatus').textContent='Rain paused. Quiet again.';
-        soundPanel.classList.remove('playing');
-      }
-    });
-    volume.addEventListener('input',setRainVolume);
+    const soundButton=document.getElementById('soundToggle'),volume=document.getElementById('volume'),ambiencePanel=document.getElementById('ambiencePanel');
+    function setVolume(){if(!audio)return;const v=Number(volume.value)/100;master.gain.setTargetAtTime(v*.34,audio.currentTime,1.2);}
+    soundButton.addEventListener('click',async()=>{if(!ambientOn){if(!audio)createAmbience();await audio.resume();setVolume();ambientOn=true;soundButton.textContent='Ⅱ Pause';document.getElementById('soundStatus').textContent='Ambient drift is playing. Keep the volume comfortable.';ambiencePanel.classList.add('playing');}
+      else{master.gain.setTargetAtTime(0,audio.currentTime,.8);ambientOn=false;soundButton.textContent='▶ Begin';document.getElementById('soundStatus').textContent='Paused. Enjoy the quiet.';ambiencePanel.classList.remove('playing');}});
+    volume.addEventListener('input',setVolume);
 
-    // Small hidden interaction
-    let logoClicks=0;
-    document.querySelector('.brand').addEventListener('click',e=>{
-      e.preventDefault(); logoClicks++;
-      if(logoClicks>=5) { showToast('You found the quiet corner. Stay curious.'); logoClicks=0; }
-      else window.scrollTo({top:0,behavior:'smooth'});
-    });
-    console.log('%cNEGUSBRINE','font-size:24px;font-weight:bold;color:#9bb8d8');
-    console.log('Curiosity looks good on you. Try the terminal on the page.');
+    // Reading progress, back-to-top and section reveal.
+    const progress=document.getElementById('progress'),backTop=document.getElementById('backTop');
+    function scrollEffects(){const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?scrollY/max*100:0)+'%';backTop.classList.toggle('visible',scrollY>500);}
+    addEventListener('scroll',scrollEffects,{passive:true});scrollEffects();
+    backTop.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+    if('IntersectionObserver'in window){const io=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('seen');io.unobserve(entry.target);}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));}
+    else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('seen'));
+
+    console.log('%cNEGUSBRINE.','font:700 22px Space Grotesk;color:#bd91ff');
+    console.log('You found the back channel. Stay curious.');
   </script>
 </body>
 </html>
